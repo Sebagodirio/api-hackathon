@@ -2,21 +2,16 @@ package controllers
 
 import (
 	"api-hackathon/models"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetHackathones(ctx *gin.Context) {
-	if ctx.Query("create") != "" {
-		fmt.Println("entered create")
-		models.CreateHackathon()
-	}
-	fmt.Println("error ocurre aca")
 	hackathons, err := models.GetAll()
 	if err != nil {
-		fmt.Println("error ocurre aca X2")
+		ctx.JSON(http.StatusInternalServerError, "An error ocurred")
+		return
 	}
 	var response []models.HackathonResponse
 	for _, hackathon := range hackathons {

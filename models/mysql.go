@@ -53,7 +53,7 @@ func GetAll() ([]Hackathon, error) {
 
 func CreateHackathon() {
 	var developers []Developer
-	results, _ := GenerateDevelopers()
+	results, _ := GenerateRandomDevelopers()
 
 	for _, result := range results.Results {
 		developers = append(developers, Developer{
@@ -63,19 +63,7 @@ func CreateHackathon() {
 		})
 	}
 
-	development := Development{
-		Name:        "SomeName",
-		Description: "SomeDescription",
-		Score:       100,
-		Developers:  developers,
-	}
-
-	hackathon := Hackathon{
-		Country:       "England",
-		State:         "Londres",
-		HackathonYear: "2022",
-		Developments:  []Development{development},
-	}
+	hackathon := GenerateRandomHackathon(developers)
 
 	err := db.Create(&hackathon).Error
 	if err != nil {

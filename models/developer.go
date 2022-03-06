@@ -43,7 +43,7 @@ func DeveloperModelToResponse(developers []Developer) []DevelopersResponse {
 	return response
 }
 
-func GenerateDevelopers() (RandomUser, error) {
+func GenerateRandomDevelopers() (RandomUser, error) {
 	var randomUsers RandomUser
 	response, err := http.Get("https://randomuser.me/api/?results=10")
 
@@ -54,6 +54,7 @@ func GenerateDevelopers() (RandomUser, error) {
 	responseData, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
+		return randomUsers, err
 	}
 	err = json.Unmarshal(responseData, &randomUsers)
 	if err != nil {

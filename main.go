@@ -2,6 +2,7 @@ package main
 
 import (
 	"api-hackathon/controllers"
+	_ "api-hackathon/cron"
 
 	"github.com/gin-gonic/gin"
 )
