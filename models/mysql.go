@@ -71,3 +71,7 @@ func CreateHackathon() {
 	}
 	fmt.Println("Successfully created")
 }
+
+func CheckUserInDB(user User) error {
+	return db.Where("email = ? and password = ?", user.Email, user.Password).First(&user).Error
+}

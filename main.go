@@ -3,6 +3,7 @@ package main
 import (
 	"api-hackathon/controllers"
 	_ "api-hackathon/cron"
+	"api-hackathon/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,9 +11,11 @@ import (
 func main() {
 	r := gin.Default()
 	v1 := r.Group("/v1")
+	v1.POST("/login", controllers.Login)
+	v1.Use(middleware.AuthRequired)
 	{
-		v1.GET("/hackathones", controllers.GetHackathones)
-		v1.GET("/hackathones/top-ten", controllers.GetDevelopments)
+		v1.GET("/hackathons", controllers.GetHackathones)
+		v1.GET("/hackathons/top-ten", controllers.GetDevelopments)
 	}
 
 	r.Run()
