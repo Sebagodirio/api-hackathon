@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"api-hackathon/models"
+	"api-hackathon/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	err := models.CheckUserInDB(user)
+	err := services.CheckUserInDB(user)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "Please provide valid login details")
 		return

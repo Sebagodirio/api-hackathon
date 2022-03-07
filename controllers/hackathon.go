@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"api-hackathon/models"
+	"api-hackathon/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,7 @@ import (
 // @Failure 503 {object} string
 // @Router /hackathons/ [get]
 func GetHackathons(ctx *gin.Context) {
-	hackathons, err := models.GetAllHackathons()
+	hackathons, err := services.GetAllHackathons()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, "An internal server error have ocurred")
 		return

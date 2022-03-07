@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"api-hackathon/models"
+	"api-hackathon/services"
 	"net/http"
 	"strconv"
 
@@ -17,7 +18,7 @@ import (
 // @Failure 503 {object} string
 // @Router /hackathons/top-ten/ [get]
 func GetDevelopments(ctx *gin.Context) {
-	developments, err := models.GetTopTenDevelopments()
+	developments, err := services.GetTopTenDevelopments()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"Error": "An internal server error have ocurred"})
 		return

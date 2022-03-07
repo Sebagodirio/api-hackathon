@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"api-hackathon/models"
+	"api-hackathon/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +12,7 @@ import (
 func AuthRequired(ctx *gin.Context) {
 	token := models.ExtractToken(ctx)
 	user := models.ExtractClaims(token)
-	err := models.CheckUserInDB(user)
+	err := services.CheckUserInDB(user)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, "You are not allowed to use this endpoint")
 		ctx.Abort()

@@ -1,7 +1,7 @@
 package cron
 
 import (
-	"api-hackathon/models"
+	"api-hackathon/services"
 	"os"
 
 	"github.com/robfig/cron"
@@ -10,7 +10,7 @@ import (
 func init() {
 	c := cron.New()
 	_ = c.AddFunc(os.Getenv("ActualizationPeriod"), func() {
-		go models.CreateHackathon()
+		go services.CreateHackathon()
 	})
 	c.Start()
 }

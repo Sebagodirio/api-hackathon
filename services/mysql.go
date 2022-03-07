@@ -1,6 +1,7 @@
-package models
+package services
 
 import (
+	"api-hackathon/models"
 	"fmt"
 	"log"
 	"os"
@@ -24,8 +25,8 @@ func init() {
 }
 
 //GetTopTenDevelopments gets the top ten developments from all the hackathons, it comes with its developers
-func GetTopTenDevelopments() ([]Development, error) {
-	var developments []Development
+func GetTopTenDevelopments() ([]models.Development, error) {
+	var developments []models.Development
 	err := db.Debug().Preload("Developers").Order("score DESC").Limit(10).Find(&developments).Error
 	if err != nil {
 		fmt.Println("ERROR", err)
@@ -35,8 +36,8 @@ func GetTopTenDevelopments() ([]Development, error) {
 }
 
 //GetAllHackathons gets all the hackathons, with its developments, which comes with its developers (hasMany -> hasMany ->)
-func GetAllHackathons() ([]Hackathon, error) {
-	var hackathons []Hackathon
+func GetAllHackathons() ([]models.Hackathon, error) {
+	var hackathons []models.Hackathon
 	err := db.Debug().Preload("Developments.Developers").Preload(clause.Associations).Find(&hackathons).Error
 	if err != nil {
 		log.Fatal("ERROR", err)
@@ -47,18 +48,18 @@ func GetAllHackathons() ([]Hackathon, error) {
 
 //CreateHackathon creates a hackathon and saves it in the database
 func CreateHackathon() {
-	var developers []Developer
-	results, _ := GenerateRandomDevelopers()
+	var developers []models.Developer
+	results, _ := models.GenerateRandomDevelopers()
 
 	for _, result := range results.Results {
-		developers = append(developers, Developer{
+		developers = append(developers, models.Developer{
 			FirstName: result.Name.First,
 			LastName:  result.Name.Last,
 			Email:     result.Email,
 		})
 	}
 
-	hackathon := GenerateRandomHackathon(developers)
+	hackathon := models.GenerateRandomHackathon(developers)
 
 	err := db.Create(&hackathon).Error
 	if err != nil {
@@ -68,6 +69,6 @@ func CreateHackathon() {
 }
 
 //CheckUserInDB checks if the user's credential are ok
-func CheckUserInDB(user User) error {
+func CheckUserInDB(user models.User) error {
 	return db.Where("email = ? and password = ?", user.Email, user.Password).First(&user).Error
 }
