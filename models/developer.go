@@ -65,3 +65,21 @@ func GenerateRandomDevelopers() (RandomUser, error) {
 	}
 	return randomUsers, nil
 }
+
+//GetRandomDevelopers call the API for generating random users
+func GetRandomDevelopers() []Developer {
+	var developers []Developer
+	results, err := GenerateRandomDevelopers()
+	if err != nil {
+		log.Fatal(err, "Error calling the API for users generation")
+		return developers
+	}
+	for _, result := range results.Results {
+		developers = append(developers, Developer{
+			FirstName: result.Name.First,
+			LastName:  result.Name.Last,
+			Email:     result.Email,
+		})
+	}
+	return developers
+}

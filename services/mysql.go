@@ -53,19 +53,7 @@ func GetAllHackathons() ([]models.Hackathon, error) {
 
 //CreateHackathon creates a hackathon and saves it in the database
 func CreateHackathon() {
-	var developers []models.Developer
-	results, _ := models.GenerateRandomDevelopers()
-
-	for _, result := range results.Results {
-		developers = append(developers, models.Developer{
-			FirstName: result.Name.First,
-			LastName:  result.Name.Last,
-			Email:     result.Email,
-		})
-	}
-
-	hackathon := models.GenerateRandomHackathon(developers)
-
+	hackathon := models.GenerateRandomHackathon()
 	err := db.Create(&hackathon).Error
 	if err != nil {
 		log.Fatal(err)

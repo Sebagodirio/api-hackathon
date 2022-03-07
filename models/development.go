@@ -18,13 +18,17 @@ type Development struct {
 }
 
 //GenerateRandomDevelopment generates a random development by using the helpers for creating random fields
-func GenerateRandomDevelopment(developers []Developer) Development {
-	return Development{
-		Name:        helpers.GetRandomDevelopmentsName(),
-		Description: helpers.GetRandomDevelopmentsName(),
-		Score:       helpers.GenerateScore(500),
-		Developers:  developers,
+func GenerateRandomDevelopments() []Development {
+	var developments []Development
+	for i := 0; i < 10; i++ {
+		developments = append(developments, Development{
+			Name:        helpers.GetRandomDevelopmentsName(),
+			Description: helpers.GetRandomDevelopmentsDescriptions(),
+			Score:       helpers.GenerateScore(500),
+			Developers:  GetRandomDevelopers(),
+		})
 	}
+	return developments
 }
 
 //DevelopmentModelToResponse converts the struct Development to DevelopmentResponse

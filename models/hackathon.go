@@ -13,11 +13,11 @@ type Hackathon struct {
 }
 
 //GenerateRandomHackathon generates a random hackathon
-func GenerateRandomHackathon(developers []Developer) Hackathon {
+func GenerateRandomHackathon() Hackathon {
 	return Hackathon{
 		Country:       "United States",
 		State:         helpers.GetRandomState(),
 		HackathonYear: "2022",
-		Developments:  []Development{GenerateRandomDevelopment(developers)},
+		Developments:  GenerateRandomDevelopments(),
 	}
 }
