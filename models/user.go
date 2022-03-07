@@ -9,16 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//User is the strut for the user database
 type User struct {
 	ID       uint
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
+//CreateToken cretes a token with the user's claims
 func (u *User) CreateToken() (string, error) {
 	var err error
-	//Creating Access Token
-	os.Setenv("ACCESS_SECRET", "jdnfksdmfksd") //this should be in an env file
 	atClaims := jwt.MapClaims{}
 	atClaims["authorized"] = true
 	atClaims["user_id"] = u.ID
@@ -33,9 +33,9 @@ func (u *User) CreateToken() (string, error) {
 	return token, nil
 }
 
+//ExtractToken extracts the bearer token from the header
 func ExtractToken(ctx *gin.Context) string {
 	bearToken := ctx.Request.Header.Get("Authorization")
-	//normally Authorization the_token_xxx
 	strArr := strings.Split(bearToken, " ")
 	if len(strArr) == 2 {
 		return strArr[1]
@@ -43,6 +43,7 @@ func ExtractToken(ctx *gin.Context) string {
 	return ""
 }
 
+//ExtractClaims extracts the user's information
 func ExtractClaims(tokenStr string) User {
 	var user User
 	token, _, err := new(jwt.Parser).ParseUnverified(tokenStr, jwt.MapClaims{})

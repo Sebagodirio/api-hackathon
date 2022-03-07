@@ -4,6 +4,7 @@ import (
 	"math/rand"
 )
 
+//GetRandomState will return a random state from USA
 func GetRandomState() string {
 	states := []string{
 		"Alabama",
@@ -30,6 +31,7 @@ func GetRandomState() string {
 	return states[rand.Intn(len(states))]
 }
 
+//GetRandomDevelopmentsName will return a random name with no sense
 func GetRandomDevelopmentsName() string {
 	states := []string{
 		"Kent Cockroaches",
@@ -56,6 +58,7 @@ func GetRandomDevelopmentsName() string {
 	return states[rand.Intn(len(states))]
 }
 
+//GetRandomDevelopmentsDescriptions will return a random description with no sense
 func GetRandomDevelopmentsDescriptions() string {
 	states := []string{
 		"This is a great project",
@@ -68,6 +71,7 @@ func GetRandomDevelopmentsDescriptions() string {
 	return states[rand.Intn(len(states))]
 }
 
+//GenerateScore will return the score from 0 to topScore
 func GenerateScore(topScore float64) float64 {
 	return rand.Float64() * topScore
 }

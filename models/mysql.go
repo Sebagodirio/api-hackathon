@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"gorm.io/driver/mysql"
@@ -22,15 +23,7 @@ func init() {
 	}
 }
 
-func GetHackathons() []Hackathon {
-	var hackathons []Hackathon
-	err := db.Debug().Preload("Developments").Find(&hackathons).Error
-	if err != nil {
-		fmt.Println("ERROR", err)
-	}
-	return hackathons
-}
-
+//GetTopTenDevelopments gets the top ten developments from all the hackathons, it comes with its developers
 func GetTopTenDevelopments() ([]Development, error) {
 	var developments []Development
 	err := db.Debug().Preload("Developers").Order("score DESC").Limit(10).Find(&developments).Error
@@ -41,16 +34,18 @@ func GetTopTenDevelopments() ([]Development, error) {
 	return developments, nil
 }
 
+//GetAllHackathons gets all the hackathons, with its developments, which comes with its developers (hasMany -> hasMany ->)
 func GetAllHackathons() ([]Hackathon, error) {
 	var hackathons []Hackathon
 	err := db.Debug().Preload("Developments.Developers").Preload(clause.Associations).Find(&hackathons).Error
 	if err != nil {
-		fmt.Println("ERROR", err)
+		log.Fatal("ERROR", err)
 		return hackathons, err
 	}
 	return hackathons, nil
 }
 
+//CreateHackathon creates a hackathon and saves it in the database
 func CreateHackathon() {
 	var developers []Developer
 	results, _ := GenerateRandomDevelopers()
@@ -67,11 +62,12 @@ func CreateHackathon() {
 
 	err := db.Create(&hackathon).Error
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	fmt.Println("Successfully created")
+	fmt.Println("---------------------- Hackathon Successfully created ----------------------")
 }
 
+//CheckUserInDB checks if the user's credential are ok
 func CheckUserInDB(user User) error {
 	return db.Where("email = ? and password = ?", user.Email, user.Password).First(&user).Error
 }
