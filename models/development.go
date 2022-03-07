@@ -2,6 +2,7 @@ package models
 
 import (
 	"api-hackathon/helpers"
+	"sort"
 	"strconv"
 )
 
@@ -39,4 +40,11 @@ func DevelopmentModelToResponse(developments []Development) []DevelopmentRespons
 		})
 	}
 	return response
+}
+
+func OrderDevelopmentByScore(developments []Development) []Development {
+	sort.SliceStable(developments, func(i, j int) bool {
+		return developments[i].Score > developments[j].Score
+	})
+	return developments
 }

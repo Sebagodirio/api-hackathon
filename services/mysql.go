@@ -43,6 +43,11 @@ func GetAllHackathons() ([]models.Hackathon, error) {
 		log.Fatal("ERROR", err)
 		return hackathons, err
 	}
+
+	for _, hackathon := range hackathons {
+		models.OrderDevelopmentByScore(hackathon.Developments)
+	}
+
 	return hackathons, nil
 }
 

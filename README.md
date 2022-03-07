@@ -10,6 +10,10 @@ $ go mod tidy
 $ go run cmd/main.go
 ```
 
+## valid user
+- email: admin@admin.com
+- password: admin
+
 ## endpoints
 
 - [POST] localhost:8080/v1/login

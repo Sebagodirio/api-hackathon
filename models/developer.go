@@ -47,7 +47,7 @@ func DeveloperModelToResponse(developers []Developer) []DevelopersResponse {
 //GenerateRandomDevelopers calls an API for creating random users
 func GenerateRandomDevelopers() (RandomUser, error) {
 	var randomUsers RandomUser
-	response, err := http.Get("https://randomuser.me/api/?results=10")
+	response, err := http.Get("https://randomuser.me/api/?results=3")
 
 	if err != nil {
 		log.Fatal(err)
