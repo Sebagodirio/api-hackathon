@@ -41,7 +41,7 @@ func GetTopTenDevelopments() ([]Development, error) {
 	return developments, nil
 }
 
-func GetAll() ([]Hackathon, error) {
+func GetAllHackathons() ([]Hackathon, error) {
 	var hackathons []Hackathon
 	err := db.Debug().Preload("Developments.Developers").Preload(clause.Associations).Find(&hackathons).Error
 	if err != nil {

@@ -7,6 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetHackathons GET godoc
+// @Summary It returns all the hackathons with its delopments, which contains its developers
+// @Accept json
+// @Produce json
+// @Param Request body models.User true "Email and password of the user"
+// @Success 200 {object} string
+// @Success 401 {object} string
+// @Failure 503 {object} string
+// @Router /login [post]
 func Login(c *gin.Context) {
 	var user models.User
 

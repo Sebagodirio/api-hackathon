@@ -1,0 +1,139 @@
+basePath: /api/v1
+definitions:
+  models.DevelopersResponse:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  models.DevelopmentResponse:
+    properties:
+      description:
+        type: string
+      developers:
+        items:
+          $ref: '#/definitions/models.DevelopersResponse'
+        type: array
+      name:
+        type: string
+      position:
+        type: string
+      score:
+        type: number
+    type: object
+  models.HackathonResponse:
+    properties:
+      country:
+        type: string
+      developments:
+        items:
+          $ref: '#/definitions/models.DevelopmentResponse'
+        type: array
+      hackathon_year:
+        type: string
+      state:
+        type: string
+    type: object
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: sebastianlgodirio@gmail.com
+    name: Sebastian Godirio
+  description: API Restful for getting the best developments in the hackathons
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: api-hackathon
+  version: "2.0"
+paths:
+  /hackathons/:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Token for entering to the endpoint
+        in: header
+        name: BearerAuthorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.HackathonResponse'
+            type: array
+        "503":
+          description: Service Unavailable
+          schema:
+            type: string
+      summary: It returns all the hackathons with its delopments, which contains its
+        developers
+  /hackathons/top-ten/:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Token for entering to the endpoint
+        in: header
+        name: BearerAuthorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.DevelopmentResponse'
+            type: array
+        "503":
+          description: Service Unavailable
+          schema:
+            type: string
+      summary: It returns the top 10 developments of all the hackathons
+  /login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Email and password of the user
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "503":
+          description: Service Unavailable
+          schema:
+            type: string
+      summary: It returns all the hackathons with its delopments, which contains its
+        developers
+swagger: "2.0"
