@@ -10,14 +10,14 @@ $ go mod tidy
 $ go run cmd/main.go
 ```
 
-## endpoint
+## endpoints
 
-[POST] localhost:8080/v1/login
-[GET] localhost:8080/v1/hackathons
-[GET] localhost:8080/v1/hackathons/top-ten
+- [POST] localhost:8080/v1/login
+- [GET] localhost:8080/v1/hackathons
+- [GET] localhost:8080/v1/hackathons/top-ten
 
-*** !important *** Please before using the API, read the documentation 
-[GET] http://localhost:8080/swagger/index.html *** documentation ***
+- ***important*** Please before using the API, read the documentation 
+- [GET] http://localhost:8080/swagger/index.html *** documentation ***
 
 
 ## enviroments
